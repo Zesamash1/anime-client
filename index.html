@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime World Client - Факти</title>
+    <link rel="stylesheet" href="style.css"> <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+            background: #1a1a2e; /* Темна тема */
+            color: #fff;
+        }
+        button {
+            background-color: #dc2626; /* Червоний акцент */
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #991b1b;
+        }
+        #fact-result {
+            margin-top: 40px;
+            padding: 20px;
+            border: 2px solid #3b82f6; /* Синій акцент */
+            border-radius: 10px;
+            min-height: 100px;
+        }
+        #fact-title {
+            font-weight: bold;
+            font-size: 1.5em;
+            color: #c4ff00; /* Неоновий акцент */
+            margin-bottom: 10px;
+        }
+        .error {
+            color: #dc2626;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Цікавий факт про аніме!</h1>
+    <p>Натисніть кнопку, щоб дізнатися випадковий факт із нашого API-сервісу.</p>
+    
+    <button onclick="fetchAnimeFact()">Дізнатися факт</button>
+    
+    <div id="fact-result">
+        <p>Натисніть кнопку, щоб завантажити перший факт...</p>
+    </div>
+
+    <script>
+        async function fetchAnimeFact() {
+            const factResultDiv = document.getElementById('fact-result');
+            factResultDiv.innerHTML = '<p>Завантаження...</p>';
+
+            const apiUrl = '';
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (response.ok) {
+                    factResultDiv.innerHTML = `
+                        <div id="fact-title">${data.title}</div>
+                        <p>${data.text}</p>
+                    `;
+                } else {
+                    factResultDiv.innerHTML = `<p class="error">Помилка API: ${data.error || 'Невідома помилка'}</p>`;
+                }
+            } catch (error) {
+                factResultDiv.innerHTML = `<p class="error">Помилка підключення: Не вдалося зв'язатися з сервером API.</p>`;
+                console.error('Fetch error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
