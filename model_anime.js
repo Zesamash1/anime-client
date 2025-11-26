@@ -1,7 +1,7 @@
 export default class ModelAnime {
     constructor() {
         // Ваше посилання на сервер Render
-        this.apiUrl = "https://anime-server-i64s.onrender.com";
+        this.apiUrl = "https://anime-server-i64s.onrender";
         this.data = null;
     }
 
