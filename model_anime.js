@@ -1,6 +1,6 @@
 export default class ModelAnime {
     constructor() {
-        this.apiUrl = "https://anime-server-i64s.onrender.com/"; 
+        this.apiUrl = "https://anime-server-i64s.onrender.com";
         this.cachedData = null; 
     }
 
