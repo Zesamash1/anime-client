@@ -1,31 +1,29 @@
 export default class ModelAnime {
     constructor() {
+        // Ваше посилання на сервер Render
         this.apiUrl = "https://anime-server-i64s.onrender.com";
-        this.cachedData = null; 
+        this.data = null;
     }
 
-    // Метод тепеp async
     async getAnimeData() {
-   
-        if (this.cachedData) {
-            return this.cachedData;
-        }
+        // Кешування (якщо дані вже є, не вантажимо знову)
+        if (this.data) return this.data;
 
         try {
+            // Запит на сервер
             const response = await fetch(`${this.apiUrl}/api/data`);
-            if (!response.ok) throw new Error('Network response was not ok');
+            if (!response.ok) throw new Error('Network error');
             
-            const data = await response.json();
-            this.cachedData = data; 
-            return data;
+            this.data = await response.json();
+            return this.data;
         } catch (error) {
-            console.error("Error fetching data:", error);
-            
+            console.error("Fetch error:", error);
+            // Дані-заглушки на випадок помилки
             return {
-                siteName: "Ошибка",
-                author: "Неизвестно",
+                siteName: "Anime World (Offline)",
+                author: "Unknown",
                 genres: [],
-                facts: [],
+                facts: [{title: "Помилка", text: "Не вдалося з'єднатися з сервером"}],
                 gallery: []
             };
         }
